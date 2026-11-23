@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f172a">
+  <title>TV013 — Estúdio de Transmissão</title>
+  <style>
+    :root{font-family:Inter,system-ui,Arial,sans-serif;color:#f8fafc;background:#0f172a}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#172554,#0f172a 55%)}
+    main{width:min(1050px,94vw);margin:0 auto;padding:36px 0}.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:22px;margin:16px 0}
+    h1,h2,p{margin-top:0}h1{font-size:clamp(1.5rem,4vw,2.2rem)}h2{font-size:1.15rem}.muted{color:#94a3b8;font-size:.92rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    label{display:block;font-size:.9rem;margin:10px 0 6px}input,select,textarea{width:100%;padding:11px;border:1px solid #475569;border-radius:8px;color:#f8fafc;background:#0f172a}
+    textarea{min-height:100px;resize:vertical}.btn{border:0;border-radius:8px;padding:10px 14px;color:#fff;background:#2563eb;font-weight:700;cursor:pointer}
+    .btn.green{background:#059669}.btn.orange{background:#d97706}.btn.gray{background:#475569}.btn.red{background:#b91c1c}
+    .btn:disabled{opacity:.5;cursor:not-allowed}.status{border-left:4px solid #38bdf8;padding:10px 12px;background:#0f172a;border-radius:5px;overflow-wrap:anywhere}
+    .media-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #334155;padding:10px 0}
+    .error{color:#fca5a5}.hidden{display:none!important}.small{font-size:.8rem;color:#94a3b8}
+  </style>
+</head>
+<body>
+<main>
+  <h1>📺 TV013 <span class="muted">/ Estúdio de transmissão</span></h1>
+  <p class="muted">Controle suas telas, canais digitais e intervalos de propaganda. Os comandos são compartilhados por todos os players.</p>
+  <section id="loginCard" class="card">
+    <h2>Acesso administrativo</h2>
+    <form id="loginForm">
+      <label for="username">Usuário</label><input id="username" autocomplete="username" required>
+      <label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" required>
+      <button class="btn" type="submit" style="margin-top:14px">Entrar</button>
+      <p id="loginError" class="error"></p>
+    </form>
+  </section>
+  <div id="dashboard" class="hidden">
+    <section class="card">
+      <div class="row" style="justify-content:space-between">
+        <div><h2 style="margin-bottom:6px">Controle ao vivo</h2><p id="sourceStatus" class="status">Carregando estado…</p></div>
+        <button id="logout" class="btn gray">Sair</button>
+      </div>
+      <div class="grid" style="margin-top:18px">
+        <form id="streamForm" class="card" style="margin:0">
+          <h2>📡 Canal / stream</h2>
+          <p class="muted">URL pública reproduzível pelo navegador (HLS, MP4/WebM ou link incorporável). RTMP/entrada OBS não é suportado pelo Worker.</p>
+          <label for="streamUrl">URL</label><input id="streamUrl" type="url" placeholder="https://.../live.m3u8" required>
+          <button class="btn" type="submit" style="margin-top:12px">Transmitir canal</button>
+        </form>
+        <form id="adForm" class="card" style="margin:0">
+          <h2>📣 Intervalo de propaganda</h2>
+          <label for="adMedia">Vídeo ou imagem</label><select id="adMedia" required></select>
+          <label for="adDuration">Duração (segundos; 5–3600)</label><input id="adDuration" type="number" min="5" max="3600" value="30" required>
+          <button id="startAd" class="btn orange" type="submit" style="margin-top:12px">Iniciar propaganda</button>
+        </form>
+      </div>
+      <button id="returnProgram" class="btn green">↩️ Retomar programação normal</button>
+      <span class="small">As telas consultam o estado a cada 15 segundos; o início pode levar alguns segundos.</span>
+    </section>
+    <section class="card">
+      <h2>📰 Manchetes no rodapé</h2>
+      <p class="muted">Uma notícia por linha. Esta versão aceita manchetes inseridas manualmente, sem depender de um serviço RSS pago.</p>
+      <textarea id="headlines" maxlength="5000" placeholder="Notícia importante&#10;Outra manchete"></textarea>
+      <button id="saveHeadlines" class="btn" style="margin-top:10px">Salvar manchetes</button>
+    </section>
+    <section class="card">
+      <h2>🎞️ Biblioteca de vídeos e imagens</h2>
+      <form id="uploadForm" class="row">
+        <input id="mediaFile" type="file" accept="image/*,video/*" required style="max-width:500px">
+        <button id="uploadButton" class="btn" type="submit">Enviar arquivo</button>
+      </form>
+      <p class="small">Limite por arquivo nesta versão: 50 MB. O armazenamento de mídia usa R2.</p>
+      <div id="mediaList"></div>
+    </section>
+  </div>
+  <p id="message" aria-live="polite"></p>
+</main>
+<script src="/js/cloudflare-admin.js"></script>
+</body>
+</html>

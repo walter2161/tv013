@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tv013",
+  "main": "cloudflare/worker.ts",
+  "compatibility_date": "2026-11-23",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/media/*", "/admin", "/player", "/"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tv013-db",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "cloudflare/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "tv013-media"
+    }
+  ]
+}

@@ -1,1 +1,307 @@
-# tv013
+# 📺 TV Corporativa & Sinalização Digital (Digital Signage v2.0)
+
+> Sistema moderno, robusto e de alto desempenho para gestão de TVs corporativas, painéis informativos, totens verticais e chamadas de senhas em consultórios/recepções.
+
+![Node.js](https://img.shields.io/badge/Node.js-20_LTS-green.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)
+![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)
+![Tests](https://img.shields.io/badge/Tests-17_Passing-success.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
+---
+
+## 📸 Demonstração Visual do Sistema
+
+### 🖥️ Painel Administrativo CMS
+
+#### 📊 Dashboard & Monitoramento em Tempo Real
+*Métricas operacionais em tempo real, status de conexão das TVs cadastradas e chamada de senhas no consultório.*
+
+<p align="center">
+  <a href="./docs/screenshots/01-dashboard.png">
+    <img src="./docs/screenshots/01-dashboard.png" alt="Dashboard & Monitoramento" width="100%" style="max-width: 850px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);" />
+  </a>
+</p>
+
+#### 🖥️ Gestão de Telas & Displays
+*Configuração de pontos de exibição (TV-01, TV-02 e Totens Verticais), resoluções (16:9 e 9:16) e vinculação de playlists.*
+
+<p align="center">
+  <a href="./docs/screenshots/02-displays.png">
+    <img src="./docs/screenshots/02-displays.png" alt="Gerenciar Telas & Displays" width="100%" style="max-width: 850px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);" />
+  </a>
+</p>
+
+#### 📁 Biblioteca Central de Mídias
+*Upload instantâneo por arrastar-e-soltar ou colar (Ctrl+V), definição de tempos de exibição e galeria organizada.*
+
+<p align="center">
+  <a href="./docs/screenshots/03-media-library.png">
+    <img src="./docs/screenshots/03-media-library.png" alt="Biblioteca de Mídias" width="100%" style="max-width: 850px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);" />
+  </a>
+</p>
+
+#### 📐 Arquitetura de Layouts Multi-Zonas
+*Pré-configurações para Recepção, Totens Verticais de elevador, Grid 2x2 e Chamada de Senhas com áudio nativo.*
+
+<p align="center">
+  <a href="./docs/screenshots/04-multi-zone-layouts.png">
+    <img src="./docs/screenshots/04-multi-zone-layouts.png" alt="Layouts Multi-Zonas" width="100%" style="max-width: 850px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);" />
+  </a>
+</p>
+
+---
+
+### 📺 Player em Tempo Real nas TVs
+
+#### 🎬 Player ao Vivo — TV Recepção Principal (16:9)
+*Layout Notícias & TV: Vídeo 70%, Sidebar lateral direita com relógio digital, previsão do tempo ao vivo e comunicado oficial da Polícia Federal.*
+
+<p align="center">
+  <a href="./docs/screenshots/05-player-live-principal.png">
+    <img src="./docs/screenshots/05-player-live-principal.png" alt="Player ao Vivo Recepção" width="100%" style="max-width: 850px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);" />
+  </a>
+</p>
+
+#### 📰 Exibição de Slides com Ticker Contínuo de Notícias RSS
+*Transição suave em aceleração de hardware via GPU e rodapé dinâmico com manchetes de notícias RSS em tempo real.*
+
+<p align="center">
+  <a href="./docs/screenshots/06-player-live-slide.png">
+    <img src="./docs/screenshots/06-player-live-slide.png" alt="Exibição de Slides com Feed de Notícias RSS" width="100%" style="max-width: 850px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);" />
+  </a>
+</p>
+
+---
+
+## 🌟 Principais Recursos e Diferenciais
+
+* **🚀 Arquitetura Moderna e Desacoplada**: Desenvolvido em **TypeScript/Node.js**, com comunicação bidirecional em tempo real via **WebSockets**, banco relacional **SQLite em modo WAL** (*Write-Ahead Logging*) e zero dependências manuais externas.
+* **📐 Suporte a Múltiplos Layouts (Multi-Zone)**:
+  * **Tela Cheia (16:9 / 9:16)**: Exibição tradicional em 100% da tela para vinhetas e vídeos.
+  * **Notícias & TV Corporativa (16:9)**: Área principal para vídeos/imagens (70%), barra lateral direita (30%) com relógio, previsão do tempo e informes, e rodapé com **ticker de notícias RSS contínuo**.
+  * **Consultório & Chamada de Senhas (16:9)**: Vídeos educativos na área principal e painel lateral integrado de chamada de senhas de atendimento, com **toque de campainha (*chime*) gerado nativamente via Web Audio API e síntese de voz (TTS)**.
+  * **Elevador / Totem Vertical (9:16 Portrait)**: Cabeçalho com data/hora e tempo, centro com mídia vertical e base com manchetes RSS e QR Code.
+  * **Grid 4 Zonas (2x2)**: 4 quadrantes simultâneos e independentes.
+* **🎬 Smart Video Engine (Vídeos sem Cortes)**:
+  * O reprodutor escuta o evento `ended` da tag HTML5 `<video>`, respeitando a duração exata de cada vídeo.
+  * *Double buffering* com transição suave em *cross-fade* CSS via GPU (`opacity`), eliminando telas pretas entre os slides.
+  * Conformidade total com as políticas de *autoplay* dos navegadores (vídeos iniciam com segurança e botão flutuante para liberar áudio global).
+* **⛅ Widgets Nativos em Tempo Real**:
+  * **Clima e Temperatura**: Integração com API gratuita e global (Open-Meteo), exibindo temperatura, sensação térmica, umidade e condição meteorológica.
+  * **Relógio e Data de Precisão**: Atualização por segundo com formatação completa em português.
+  * **Ticker RSS Contínuo**: Parser de notícias com efeito *marquee* acelerado por hardware sem engasgos.
+* **⚡ Resiliência Offline (Offline-First)**:
+  * Equipado com **Service Worker** e cache local de mídias e manifesto. Se a rede cair ou o servidor reiniciar, a TV continua reproduzindo sem travar ou mostrar tela de erro.
+* **🐳 100% Conteinerizado em Docker**:
+  * `Dockerfile` multi-stage otimizado em Alpine Linux.
+  * `docker-compose.yml` com volumes persistentes para banco de dados (`tv_data`) e arquivos de mídia (`tv_media`).
+
+---
+
+## 👥 Usuários Padrão Iniciais
+
+O sistema já é inicializado com dois usuários pré-configurados:
+
+| Usuário | Senha Padrão | Perfil | Permissões |
+| :--- | :--- | :--- | :--- |
+| **`admin`** | `tvcorporativa` | Administrador Geral | Acesso irrestrito a todas as funções e telas |
+| **`edkallenn`** | `123456` | Administrador / Gestor | Gestão de telas, uploads de mídia, layouts e senhas |
+
+---
+
+## 📺 Telas Padrão Pré-Configuradas
+
+Ao inicializar, o sistema já disponibiliza 3 telas prontas para visualização imediata:
+
+1. **`TV-01` (Recepção Principal)**: Layout Corporativo com Vídeo, Sidebar com Clima/Hora e Rodapé RSS.
+   🔗 `http://localhost:8080/player?code=TV-01`
+2. **`TV-02` (Consultório / Sala de Espera)**: Layout com Painel de Chamada de Senhas e Mídia.
+   🔗 `http://localhost:8080/player?code=TV-02`
+3. **`TV-03` (Totem Vertical Elevador)**: Layout Retrato 9:16 com Clima no Topo, Vídeo Central e Notícias na Base.
+   🔗 `http://localhost:8080/player?code=TV-03`
+
+---
+
+## 🔀 Versão Alternativa em Go (Golang)
+
+> 💡 **Nota Arquitetural**: Conforme especificado no planejamento, uma versão alternativa completa implementada em **Go (Golang)** de altíssimo desempenho (< 25MB RAM, binário estático compilado) está disponível na branch **`feature/go-alternative`** deste repositório. Para alternar e inspecionar a versão em Go:
+> ```bash
+> git checkout feature/go-alternative
+> ```
+
+---
+
+## 🚀 Como Executar o Sistema
+
+### Opção 1: Execução com Docker (Recomendado para Produção)
+
+Basta clonar o projeto e executar um único comando:
+
+```bash
+# Configure JWT_SECRET no arquivo .env antes de iniciar
+cp .env.example .env
+
+# Subir o ambiente completo conteinerizado
+docker compose up -d
+```
+
+O serviço iniciará na porta `8080`:
+* **Painel Administrativo CMS**: [http://localhost:8080/admin](http://localhost:8080/admin)
+* **Web Player da TV**: [http://localhost:8080/player?code=TV-01](http://localhost:8080/player?code=TV-01)
+* **Verificação de Saúde (Healthcheck)**: [http://localhost:8080/api/health](http://localhost:8080/api/health)
+
+Para parar os containers:
+```bash
+docker compose down
+```
+
+### Opção 2: Execução Local (Node.js)
+
+Se desejar executar nativamente na sua máquina:
+
+```bash
+# 1. Instalar dependências
+npm install
+
+# 2. Executar em modo de desenvolvimento (Live Reload)
+npm run dev
+
+# Ou compilar e rodar a versão de produção:
+npm run build
+npm start
+```
+
+### Opção 3: Cloudflare Worker
+
+O Worker usa uma implementação Cloudflare separada do backend Express, com arquivos estáticos em `public/`, banco D1 e armazenamento R2. Antes de publicar:
+
+1. Instale as dependências com `npm ci` e autentique o Wrangler com `npx wrangler login`.
+2. Crie o banco D1 `tv013-db` e o bucket R2 `tv013-media`.
+3. Copie o `database_id` retornado pelo D1 para `wrangler.jsonc`; mantenha o nome do bucket igual ao configurado no arquivo.
+4. Aplique o schema com `npx wrangler d1 migrations apply tv013-db --remote`.
+5. Configure os secrets `ADMIN_USER`, `ADMIN_PASSWORD` e `JWT_SECRET` com `npx wrangler secret put <NOME>`.
+6. Publique com `npm run deploy:worker`.
+
+No deploy conectado ao GitHub, use `npm ci` como comando de instalação e `npm run deploy:worker` como comando de deploy. O D1, o bucket R2 e os secrets precisam estar provisionados na mesma conta Cloudflare antes da publicação.
+
+### Opção 4: Execução em Go (`feature/go-alternative`)
+
+O projeto também conta com um motor backend completo em **Go (Golang 1.22+)** na branch `feature/go-alternative`, com 100% de paridade de funcionalidades (`v1.3.1`), compartilhando o mesmo banco SQLite (`data/tv_corporativa.db`) e a mesma pasta de mídias (`media/`), consumindo apenas **~15 MB de RAM**:
+
+```bash
+# 1. Alternar para a branch em Go
+git checkout feature/go-alternative
+```
+
+**Via Docker (Recomendado — não requer Go instalado na máquina):**
+```bash
+docker compose -f docker-compose.go.yml up -d --build
+```
+
+**Ou nativamente com Go instalado (Windows / Linux / macOS):**
+```powershell
+# No Windows (PowerShell com GCC do MSYS2/MinGW no PATH para o SQLite CGO):
+$env:Path += ";C:\msys64\ucrt64\bin"
+$env:CGO_ENABLED = "1"
+go mod tidy
+go run ./cmd/server/main.go
+
+# Ou gerar um executável nativo (.exe):
+go build -ldflags="-s -w" -o tv-corporativa.exe ./cmd/server
+.\tv-corporativa.exe
+```
+
+```bash
+# No Linux / macOS:
+CGO_ENABLED=1 go mod tidy
+CGO_ENABLED=1 go run ./cmd/server/main.go
+```
+
+---
+
+## 🧪 Testes Automatizados
+
+O sistema conta com suíte abrangente de testes de integração cobrindo autenticação, telas, layouts multi-zonas, widgets e chamada de senhas:
+
+```bash
+npm test
+```
+
+Resultado dos testes:
+```
+PASS tests/widgets.test.ts
+PASS tests/layouts.test.ts
+PASS tests/displays.test.ts
+PASS tests/queue.test.ts
+PASS tests/auth.test.ts
+
+Test Suites: 5 passed, 5 total
+Tests:       17 passed, 17 total
+Snapshots:   0 total
+Time:        6.3 s
+```
+
+---
+
+## 📁 Estrutura de Diretórios
+
+```
+tv-corporativa/
+├── data/                   # Volume persistente do banco SQLite (tv_corporativa.db)
+├── media/                  # Volume persistente de vídeos e imagens enviados
+├── public/                 # Front-end da aplicação
+│   ├── css/
+│   │   ├── admin.css       # Estilos do painel de controle CMS
+│   │   └── player.css      # Estilos acelerados por GPU do reprodutor da TV
+│   ├── js/
+│   │   ├── admin.js        # Lógica SPA do CMS administrativo
+│   │   └── player.js       # Motor do player (Multi-Zone, Vídeo, WebSockets, Áudio)
+│   ├── index.html          # Interface do Painel Administrativo
+│   ├── player.html         # Interface da TV Player
+│   └── sw.js               # Service Worker para suporte offline
+├── src/                    # Código-fonte TypeScript do Backend
+│   ├── config/             # Variáveis de ambiente e caminhos
+│   ├── database/           # Conexão SQLite (WAL mode), migrações e seed inicial
+│   ├── middleware/         # Autenticação JWT e upload com Multer
+│   ├── routes/             # Endpoints REST (Auth, Displays, Layouts, Media, Queue, Widgets)
+│   ├── services/           # Hub WebSockets e parser RSS com cache
+│   ├── app.ts              # Configuração da aplicação Express
+│   └── server.ts           # Ponto de entrada (Bootstrap HTTP + WS)
+├── tests/                  # Testes automatizados (Jest / Supertest)
+├── Dockerfile              # Imagem Docker multi-stage otimizada
+├── docker-compose.yml      # Orquestração com volumes persistentes
+├── package.json            # Dependências e scripts
+└── tsconfig.json           # Configurações do compilador TypeScript
+```
+
+---
+
+## 📄 Licença
+
+Distribuído sob a licença **MIT**. Livre para uso comercial e corporativo.
+
+---
+
+## ☕ Apoie o Projeto (Me Pague um Café / Buy Me a Coffee)
+
+Este projeto é desenvolvido com dedicação e carinho. Se este projeto foi útil para os seus estudos, trabalho ou produtividade diária e você quiser apoiar o desenvolvimento contínuo:
+
+- ☕ **Buy Me a Coffee (Internacional / Cartão / QR Code)**:
+  - 👉 **[https://buymeacoffee.com/edkallenn](https://buymeacoffee.com/edkallenn)**
+  - [![](https://img.shields.io/badge/☕_Buy_Me_a_Coffee-Apoiar_Projeto-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/edkallenn)
+  - Escaneie o QR Code abaixo com a câmera do celular para abrir diretamente:
+
+<div align="center">
+  <a href="https://buymeacoffee.com/edkallenn" target="_blank">
+    <img src="./bmc_qr.png" alt="Buy Me a Coffee QR Code — Edkallenn (@ed1rac)" width="220" />
+  </a>
+</div>
+
+- 🇧🇷 **PIX (Brasil — Qualquer valor, taxa zero)**:
+  - **Chave PIX (E-mail)**: `edkevan@gmail.com`
+  - **Titular**: Edkallenn Silva de Lima
+
+Muito obrigado pelo apoio! 🚀
+
+---
