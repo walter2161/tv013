@@ -134,6 +134,18 @@ Ao inicializar, o sistema já disponibiliza 3 telas prontas para visualização 
 
 ## 🚀 Como Executar o Sistema
 
+### Deploy do Cloudflare Worker
+
+O deploy do Worker usa D1 para os dados e R2 para a biblioteca de mídias. No painel **Workers Builds**, configure o comando de deploy como:
+
+```bash
+npm run deploy:worker
+```
+
+Esse comando localiza ou cria os recursos `tv013-db` (D1) e `tv013-media` (R2), aplica as migrações remotas e publica o Worker. A conta Cloudflare conectada ao build precisa permitir gerenciar Workers, D1 e R2. Não use `npx wrangler deploy` diretamente: o ID D1 da configuração é resolvido automaticamente pelo script no momento do deploy.
+
+Após o primeiro deploy, configure `ADMIN_USER`, `ADMIN_PASSWORD` e `JWT_SECRET` como **secrets** do Worker nas configurações do Cloudflare antes de entrar no painel administrativo.
+
 ### Opção 1: Execução com Docker (Recomendado para Produção)
 
 Basta clonar o projeto e executar um único comando:
