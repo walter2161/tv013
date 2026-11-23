@@ -78,7 +78,7 @@ async function main() {
   await writeFile(deployConfigPath, `${JSON.stringify(config, null, 2)}\n`);
 
   try {
-    run(['d1', 'migrations', 'apply', databaseName, '--remote', '--yes', '--config', deployConfigPath]);
+    run(['d1', 'migrations', 'apply', databaseName, '--remote', '--force', '--config', deployConfigPath]);
     run(['deploy', '--config', deployConfigPath]);
   } finally {
     await rm(deployConfigPath, { force: true });
